@@ -1,0 +1,79 @@
+---
+Test
+---
+!***> FitNesse Configurations
+
+!define TEST_SYSTEM {slim}
+!define COMMAND_PATTERN {java -Dlog4j.configuration=file:///${automated.testing.home}/log4j.properties -cp %p %m}
+!path ${automated.testing.home}/**.jar
+!define Name {Elon Musk}                                                                                                                             
+!define ContactType {Client} 
+*!
+
+
+!*** Initialization and Login to Tempo
+
+!| script                         |com.appiancorp.ps.automatedtest.fixture.SitesFixture                                                  |
+|setup for test script for browser|CHROME|locale|en_US|version|23.2|url|https://appiancoe.vuram.com/suite/sites/a-legal-entity-onboarding|
+|login with username              |testuser_1                                                                                            |
+
+                                                                                                                                                                                                                                                                                     |
+
+!*** Initiate Legal Entity Onboarding
+#Legal Entity Details
+!|script                                            |
+|click on site page|Records                         |
+|click on button   |Initiate Legal Entity Onboarding|
+|defining variables                                 |
+|click on button   |NEXT                            |
+
+
+#Investment Details
+!| script                                                               |
+|click on link  |Add underlying investment                              |
+|populate grid  |[2]|column|[2]|row|[1]|with|tv!Investment Details.IVC_1|
+|populate grid  |[2]|column|[8]|row|[1]|with|Daily                      |
+|populate grid  |[2]|column|[9]|row|[1]|with|1                          |
+|click on button|Next                                                   |
+
+#contact details
+!| script                                                        |
+|click on link  |Add a contact                                   |
+|populate grid  |[2]|column|[2]|row|[1]|with value|${Name}       |
+|populate grid  |[2]|column|[6]|row|[1]|with      |${ContactType}|
+|click on button|Initiate Onboarding                             |
+|click on button|Yes                                             |
+|click on button|Agree                                           |
+
+!*** Log out and tear down
+!| script|
+|logout  |
+***!
+
+!*** Initialization and Login to Tempo
+
+!| script                                                                             |
+|set appian url to  |https://appiancoe.vuram.com/suite/sites/a-legal-entity-onboarding|
+|login with username|testuser_2                                                       |
+***!
+
+!*** Ensure the initiated request 
+!| script                                                   |
+|click on grid|[1]                    |column  |[1] |row|[1]|
+|verify field |Client Name            |contains|$Client     |
+|verify field |Legal Entity Identifier|contains|$LEI        |
+|verify field |Legal Entity Name      |contains|$LEN        |
+|verify field |Country                |contains|$Country    |
+|verify field |Timezone               |contains|$Timezone   |
+|verify field |Client Email Address   |contains|$ClientEmail|
+|verify field |Outgoing Email Address |contains|$OEA        |
+|verify field |Contracting Entity     |contains|$CE         |
+|verify field |Service Providers      |contains|$SP         |
+|verify field |Launch Date            |contains|$Ldate      |
+***!
+
+!*** Log out and tear down
+!| script |
+|logout   |
+|tear down|
+***!

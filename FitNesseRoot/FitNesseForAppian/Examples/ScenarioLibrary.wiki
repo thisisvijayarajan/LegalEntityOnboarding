@@ -1,0 +1,137 @@
+!contents -R2 -g -p -f -h
+
+!|Scenario             |setup for test script for browser|browserType|locale|location|version|versionNum|url|appianUrl|
+|setup with browser    |@browserType                                                                                  |
+|set appian locale to  |@location                                                                                     |
+|set appian version to |@versionNum                                                                                   |
+|set appian url to     |@appianUrl                                                                                    |
+|set timeout seconds to|20                                                                                            |
+|set start datetime                                                                                                   |
+
+
+!**** defining variables
+
+!|Scenario        |defining variables                                                                                                                                                                                                                                                                                                                                                                       |
+|set test variable|Legal Entity Details   |with                   |{"ClientName":Accenture,"LegalEntityIdentifier":123,"LegalEntityName": Sample Entity Name,"Country":India,"Timezone": IST,"ClientEmailAddress":"vijayarajanm@vuram.com","OutgoingEmailAddress": divyasm@vuram.com,"ContractingEntity":Real Capital Inc - India,"ServiceProviders": Real Capital Inc - Australia,"LaunchDate": 04/01/2025}|
+|set test variable|Investment Details     |with                   |{"IVC_1":IVC001,"IVC_2":IVC002,"IVC_3":IVC003}                                                                                                                                                                                                                                                                                           |
+|populate field   |Client Name            |with                   |tv!Legal Entity Details.ClientName                                                                                                                                                                                                                                                                                                       |
+|populate field   |Legal Entity Identifier|with                   |tv!Legal Entity Details.LegalEntityIdentifier                                                                                                                                                                                                                                                                                            |
+|populate field   |Legal Entity Name      |with                   |tv!Legal Entity Details.LegalEntityName                                                                                                                                                                                                                                                                                                  |
+|populate field   |Country                |with                   |tv!Legal Entity Details.Country                                                                                                                                                                                                                                                                                                          |
+|populate field   |Timezone               |with                   |tv!Legal Entity Details.Timezone                                                                                                                                                                                                                                                                                                         |
+|populate field   |Client - Email Address |with                   |tv!Legal Entity Details.ClientEmailAddress                                                                                                                                                                                                                                                                                               |
+|populate field   |Outgoing Email Address |with                   |tv!Legal Entity Details.OutgoingEmailAddress                                                                                                                                                                                                                                                                                             |
+|populate field   |Contracting Entity     |with                   |tv!Legal Entity Details.ContractingEntity                                                                                                                                                                                                                                                                                                |
+|populate field   |Service Providers      |with                   |tv!Legal Entity Details.ServiceProviders                                                                                                                                                                                                                                                                                                 |
+|populate field   |Launch Date            |with                   |tv!Legal Entity Details.LaunchDate                                                                                                                                                                                                                                                                                                       |
+|$Client=         |get field              |Client Name            |value                                                                                                                                                                                                                                                                                                                                    |
+|$LEI=            |get field              |Legal Entity Identifier|value                                                                                                                                                                                                                                                                                                                                    |
+|$LEN=            |get field              |Legal Entity Name      |value                                                                                                                                                                                                                                                                                                                                    |
+|$Country=        |get field              |Country                |value                                                                                                                                                                                                                                                                                                                                    |
+|$Timezone=       |get field              |Timezone               |value                                                                                                                                                                                                                                                                                                                                    |
+|$ClientEmail=    |get field              |Client - Email Address |value                                                                                                                                                                                                                                                                                                                                    |
+|$OEA=            |get field              |Outgoing Email Address |value                                                                                                                                                                                                                                                                                                                                    |
+|$CE=             |get field              |Contracting Entity     |value                                                                                                                                                                                                                                                                                                                                    |
+|$SP=             |get field              |Service Providers      |value                                                                                                                                                                                                                                                                                                                                    |
+|$Ldate=          |get field              |Launch Date            |value                                                                                                                                                                                                                                                                                                                                    |
+
+
+!**** Getting Input and storing in a variable
+!|Scenario    |getInputLED                            |
+|$Client=     |get field|Client Name            |value|
+|$LEI=        |get field|Legal Entity Identifier|value|
+|$LEN=        |get field|Legal Entity Name      |value|
+|$Country=    |get field|Country                |value|
+|$Timezone=   |get field|Timezone               |value|
+|$ClientEmail=|get field|Client - Email Address |value|
+|$OEA=        |get field|Outgoing Email Address |value|
+|$CE=         |get field|Contracting Entity     |value|
+|$SP=         |get field|Service Providers      |value|
+|$Ldate=      |get field|Launch Date            |value|
+
+!|Scenario   |getInputID                           |
+|$IVC=       |get grid|[1]|column|[2]|row|[1]|value|
+|$Investment=|get grid|[1]|column|[3]|row|[1]|value|
+|$FC=        |get grid|[1]|column|[4]|row|[1]|value|
+|$ISIN=      |get grid|[1]|column|[5]|row|[1]|value|
+|$LiveDate=  |get grid|[1]|column|[6]|row|[1]|value|
+|$FO=        |get grid|[1]|column|[7]|row|[1]|value|
+|$VF=        |get grid|[1]|column|[8]|row|[1]|value|
+|$DD=        |get grid|[1]|column|[9]|row|[1]|value|
+
+!|Scenario   |getInputID2                          |
+|$IVC=       |get grid|[2]|column|[2]|row|[1]|value|
+|$Investment=|get grid|[2]|column|[3]|row|[1]|value|
+|$FC=        |get grid|[2]|column|[4]|row|[1]|value|
+|$ISIN=      |get grid|[2]|column|[5]|row|[1]|value|
+|$LiveDate=  |get grid|[2]|column|[6]|row|[1]|value|
+|$FO=        |get grid|[2]|column|[7]|row|[1]|value|
+|$VF=        |get grid|[2]|column|[8]|row|[1]|value|
+|$DD=        |get grid|[2]|column|[9]|row|[1]|value|
+
+!|Scenario|getInputCD                           |
+|$Name=   |get grid|[1]|column|[2]|row|[1]|value|
+|$PN=     |get grid|[1]|column|[3]|row|[1]|value|
+|$Email=  |get grid|[1]|column|[4]|row|[1]|value|
+|$Address=|get grid|[1]|column|[5]|row|[1]|value|
+|$Contact=|get grid|[1]|column|[6]|row|[1]|value|
+
+!|Scenario|getInputCD2                          |
+|$Name=   |get grid|[2]|column|[2]|row|[1]|value|
+|$PN=     |get grid|[2]|column|[3]|row|[1]|value|
+|$Email=  |get grid|[2]|column|[4]|row|[1]|value|
+|$Address=|get grid|[2]|column|[5]|row|[1]|value|
+|$Contact=|get grid|[2]|column|[6]|row|[1]|value|
+
+
+
+!**** Verifying the sendback request fields with the fields before sendback
+!|Scenario   |VerifyFieldLED                               |
+|verify field|Client Name            |contains|$Client     |
+|verify field|Legal Entity Identifier|contains|$LEI        |
+|verify field|Legal Entity Name      |contains|$LEN        |
+|verify field|Country                |contains|$Country    |
+|verify field|Timezone               |contains|$Timezone   |
+|verify field|Client Email Address   |contains|$ClientEmail|
+|verify field|Outgoing Email Address |contains|$OEA        |
+|verify field|Contracting Entity     |contains|$CE         |
+|verify field|Service Providers      |contains|$SP         |
+
+!|Scenario  |VerifyFieldID                              |
+|verify grid|[1]|column|[2]|row|[1]|contains|$IVC       |
+|verify grid|[1]|column|[3]|row|[1]|contains|$Investment|
+|verify grid|[1]|column|[4]|row|[1]|contains|$FC        |
+|verify grid|[1]|column|[5]|row|[1]|contains|$ISIN      |
+|verify grid|[1]|column|[6]|row|[1]|contains|$LiveDate  |
+|verify grid|[1]|column|[7]|row|[1]|contains|$FO        |
+|verify grid|[1]|column|[8]|row|[1]|contains|$VF        |
+|verify grid|[1]|column|[9]|row|[1]|contains|$DD        |
+
+
+!|Scenario  |VerifyFieldCD                           |
+|verify grid|[1]|column|[2]|row|[1]|contains|$Name   |
+|verify grid|[1]|column|[3]|row|[1]|contains|$PN     |
+|verify grid|[1]|column|[4]|row|[1]|contains|$Email  |
+|verify grid|[1]|column|[5]|row|[1]|contains|$Address|
+|verify grid|[1]|column|[6]|row|[1]|contains|$Contact|
+
+!|Scenario  |VerifyFieldID2                             |
+|verify grid|[2]|column|[2]|row|[1]|contains|$IVC       |
+|verify grid|[2]|column|[3]|row|[1]|contains|$Investment|
+|verify grid|[2]|column|[4]|row|[1]|contains|$FC        |
+|verify grid|[2]|column|[5]|row|[1]|contains|$ISIN      |
+|verify grid|[2]|column|[6]|row|[1]|contains|$LiveDate  |
+|verify grid|[2]|column|[7]|row|[1]|contains|$FO        |
+|verify grid|[2]|column|[8]|row|[1]|contains|$VF        |
+|verify grid|[2]|column|[9]|row|[1]|contains|$DD        |
+
+!|Scenario  |VerifyFieldCD2                          |
+|verify grid|[2]|column|[2]|row|[1]|contains|$Name   |
+|verify grid|[2]|column|[3]|row|[1]|contains|$PN     |
+|verify grid|[2]|column|[4]|row|[1]|contains|$Email  |
+|verify grid|[2]|column|[5]|row|[1]|contains|$Address|
+|verify grid|[2]|column|[6]|row|[1]|contains|$Contact|
+
+
+
+

@@ -1,0 +1,16 @@
+---
+Suite
+---
+!1 Test suite ${PAGE_NAME}
+!contents -R2 -g -p -f -h
+
+!| script                         |com.appiancorp.ps.automatedtest.fixture.TempoFixture                                                  |
+|setup for test script for browser|CHROME|locale|en_US|version|22.4|url|https://appiancoe.vuram.com/suite/sites/a-legal-entity-onboarding|
+|login with username              |testuser_2                                                                                            |
+
+!| script                                                                                                   |
+|click on menu                   |Records                                                                   |
+|populate record type user filter|Contracting Entity|with       |Real Capital Inc - India                   |
+|populate record type user filter|Service Provider  |with       |Real Capital Inc - United States of America|
+|click on button with tooltip    |Manage Filters                                                            |
+|click on record action field    |[1]               |menu action|Save filters as...                         |

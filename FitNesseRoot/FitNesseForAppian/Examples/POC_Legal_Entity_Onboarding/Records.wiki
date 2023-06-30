@@ -1,0 +1,77 @@
+---
+Test
+---
+!***> FitNesse Configurations
+
+!define TEST_SYSTEM {slim}
+!define COMMAND_PATTERN {java -Dlog4j.configuration=file:///${automated.testing.home}/log4j.properties -cp %p %m}
+!path ${automated.testing.home}/**.jar
+
+!*** Initialization and Login to IO
+!|script                          |com.appiancorp.ps.automatedtest.fixture.SitesFixture                                                  |
+|setup for test script for browser|CHROME|locale|en_US|version|23.2|url|https://appiancoe.vuram.com/suite/sites/a-legal-entity-onboarding|
+|login with username              |testuser_1                                                                                            |
+
+#|populate field|Search            |with|tradnametest         |
+#search terms
+#|check filters                                                                   |
+
+#using search boxes and filters
+!| script                                                                                                               |
+|click on site page              |Records                                                                               |
+|click on button with tooltip    |refresh                                                                               |
+|populate record type user filter|Contracting Entity|with                   |Real Capital Inc - India                   |
+|populate record type user filter|Service Provider  |with                   |Real Capital Inc - United States of America|
+|populate record type user filter|Status            |with                   |Sent back                                  |
+|click on record                 |[1]                                                                                   |
+|verify record related action    |Related Actions   |is present                                                         |
+|show                            |get field         |Legal Entity Identifier|value                                      |
+|show                            |get field         |Legal Entity Name      |value                                      |
+|show                            |get field         |Country                |value                                      |
+|show                            |get field         |Timezone               |value                                      |
+|show                            |get field         |Client Email Address   |value                                      |
+|show                            |get field         |Outgoing Email Address |value                                      |
+|show                            |get field         |Contracting Entity     |value                                      |
+|show                            |get field         |Service Providers      |value                                      |
+|show                            |get field         |Launch Date            |value                                      |
+|show                            |get grid          |[1]                    |column    |[1]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[2]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[3]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[4]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[5]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[6]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[7]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[8]    |row    |[1]    |value   |
+|click on record related action  |Contact Details                                                                       |
+|show                            |get grid          |[1]                    |column    |[1]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[2]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[3]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[4]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[5]    |row    |[1]    |value   |
+|click on record related action  |History                                                                               |
+|show                            |get grid          |[1]                    |column    |[1]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[2]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[3]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[4]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[5]    |row    |[1]    |value   |
+|show                            |get grid          |[1]                    |column    |[1]    |row    |[2]    |value   |
+|show                            |get grid          |[1]                    |column    |[2]    |row    |[2]    |value   |
+|show                            |get grid          |[1]                    |column    |[3]    |row    |[2]    |value   |
+|show                            |get grid          |[1]                    |column    |[4]    |row    |[2]    |value   |
+|show                            |get grid          |[1]                    |column    |[5]    |row    |[2]    |value   |
+|click on record related action  |Related Actions                                                                       |
+|verify record related action    |Related Actions   |is present                                                         |
+
+
+
+***!
+!*** Log out 
+!| script |
+|logout   |
+|tear down|
+***!
+
+
+
+
+
